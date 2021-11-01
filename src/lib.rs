@@ -76,11 +76,11 @@ impl Ulid {
     ///
     /// # Example
     /// ```rust
-    /// use rand::FromEntropy;
-    /// use rand::rngs::SmallRng;
+    /// use rand::SeedableRng;
+    /// use rand::rngs::ThreadRng;
     /// use ulid::Ulid;
     ///
-    /// let mut rng = SmallRng::from_entropy();
+    /// let mut rng = ThreadRng::default();
     /// let ulid = Ulid::with_source(&mut rng);
     /// ```
     pub fn with_source<R: rand::Rng>(source: &mut R) -> Ulid {
@@ -107,11 +107,11 @@ impl Ulid {
     /// # Example
     /// ```rust
     /// use chrono::offset::Utc;
-    /// use rand::FromEntropy;
-    /// use rand::rngs::SmallRng;
+    /// use rand::SeedableRng;
+    /// use rand::rngs::ThreadRng;
     /// use ulid::Ulid;
     ///
-    /// let mut rng = SmallRng::from_entropy();
+    /// let mut rng = ThreadRng::default();
     /// let ulid = Ulid::from_datetime_with_source(Utc::now(), &mut rng);
     /// ```
     pub fn from_datetime_with_source<T, R>(datetime: DateTime<T>, source: &mut R) -> Ulid
@@ -409,10 +409,10 @@ impl Generator {
     /// use ulid::Generator;
     /// use ulid::Ulid;
     /// use chrono::Utc;
-    /// use rand::FromEntropy;
-    /// use rand::rngs::SmallRng;
+    /// use rand::SeedableRng;
+    /// use rand::rngs::ThreadRng;
     ///
-    /// let mut rng = SmallRng::from_entropy();
+    /// let mut rng = ThreadRng::default();
     /// let mut gen = Generator::new();
     ///
     /// let ulid1 = gen.generate_with_source(&mut rng).unwrap();
@@ -436,11 +436,11 @@ impl Generator {
     /// ```rust
     /// use ulid::Generator;
     /// use chrono::Utc;
-    /// use rand::FromEntropy;
-    /// use rand::rngs::SmallRng;
+    /// use rand::SeedableRng;
+    /// use rand::rngs::ThreadRng;
     ///
     /// let dt = Utc::now();
-    /// let mut rng = SmallRng::from_entropy();
+    /// let mut rng = ThreadRng::default();
     /// let mut gen = Generator::new();
     ///
     /// let ulid1 = gen.generate_from_datetime_with_source(dt, &mut rng).unwrap();

@@ -14,5 +14,5 @@ repository = "https://github.com/dylanhart/ulid-rs"
 edition = "2018"
 
 [dependencies]
-structopt = "0.2"
+structopt = "0.3"
 ulid = { version = "*", path = ".." }

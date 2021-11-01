@@ -1,9 +1,21 @@
 use bencher::{benchmark_group, benchmark_main, Bencher};
 use chrono::Utc;
 use ulid::{Generator, Ulid, ULID_LEN};
+use rand::rngs::ThreadRng;
 
 fn bench_new(b: &mut Bencher) {
     b.iter(|| Ulid::new());
+}
+
+fn bench_from_generate_with_datetime_source(b: &mut Bencher) {
+	 let time = Utc::now();
+	 let mut rng = ThreadRng::default();
+	 let mut gen = Generator::new();
+
+	 b.iter(|| {
+		  let result = gen.generate_from_datetime_with_source(time, &mut rng);
+		  assert!(result.is_ok());
+	 });
 }
 
 fn bench_generator_generate(b: &mut Bencher) {
@@ -39,6 +51,7 @@ benchmark_group!(
     bench_new,
     bench_generator_generate,
     bench_from_time,
+	 bench_from_generate_with_datetime_source,
     bench_to_str,
     bench_to_string,
     bench_from_string
